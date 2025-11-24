@@ -8,10 +8,9 @@ const SignUp = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register } = useAuthStore();
+  const { register, isLoading } = useAuthStore();
 
   const handleSignUp = async () => {
     const result = await register({name, email, password});
@@ -90,9 +89,9 @@ const SignUp = () => {
       <TouchableOpacity
         onPress={handleSignUp}
         className="bg-green-600 py-3 rounded-lg items-center mb-4"
-        disabled={loading}
+        disabled={isLoading === true}
       >
-        {loading ? (
+        {isLoading == true ? (
           <ActivityIndicator color="#fff" />
         ) : (
           <Text className="text-white font-semibold text-lg">Sign Up</Text>

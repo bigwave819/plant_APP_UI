@@ -1,17 +1,30 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { useAuthStore } from '@/store/authStore';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const { login, isLoading } = useAuthStore()
+
+
+  const handleLogin = async () => {
+    const result = await login({ email, password })
+    if (!result.success) {
+      Alert.alert('Error', result.error || 'Registration failed.')
+    }
+    else {
+      Alert.alert('login Successfully')
+    }
+  }
 
   return (
     <View className="flex-1 justify-center px-6 bg-white">
-      
+
       {/* Welcome Text */}
       <Text className="text-4xl font-bold text-center text-green-600 mb-2">
         Hello, Welcome Again!
@@ -67,11 +80,11 @@ const SignIn = () => {
 
       {/* LOGIN BUTTON */}
       <TouchableOpacity
-        onPress={() => setLoading(true)}
+        onPress={handleLogin}
         className="bg-green-600 py-3 rounded-lg items-center mb-4"
-        disabled={loading}
+        disabled={isLoading === true}
       >
-        {loading ? (
+        {isLoading === true ? (
           <ActivityIndicator color="white" />
         ) : (
           <Text className="text-white text-lg font-semibold">Login</Text>

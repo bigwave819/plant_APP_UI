@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const SafeScreen = ({ children }: any) => {
     const insets = useSafeAreaInsets();
-    return <View style={[styles.container, { paddingTop: insets.top } ]}>{children}</View>
+    return <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom} ]}>{children}</View>
 
 }
 
