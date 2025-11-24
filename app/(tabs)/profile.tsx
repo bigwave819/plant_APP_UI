@@ -38,6 +38,8 @@ const profile = () => {
           <Text className='text-white text-center text-lg'>Logout</Text>
         </TouchableOpacity>
       </View>
+
+      
     </View>
   )
 }
